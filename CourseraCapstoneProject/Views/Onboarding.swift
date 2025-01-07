@@ -47,6 +47,8 @@ struct Onboarding: View {
             }
             .padding()
             .onAppear {
+                PersistenceController.shared.clear()
+                
                 if UserDefaults.standard.bool(forKey: userDefaultsIsLoggedIn) {
                     isLoggedIn = true
                 }
