@@ -43,6 +43,7 @@ struct Onboarding: View {
                     }
                 } label: {
                     Text("Register")
+                        .font(Font.custom("Karla", size: 18))
                 }
             }
             .padding()

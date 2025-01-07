@@ -15,6 +15,7 @@ struct Menu: View {
     var body: some View {
         VStack (alignment: .leading) {
             Text("Little Lemon")
+                .font(.custom("Markazi", size: 40))
             Text("Chicago")
             Text("We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.")
             

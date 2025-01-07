@@ -29,9 +29,22 @@
 		115C97022D2D7FA80086B4F8 /* CourseraCapstoneProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CourseraCapstoneProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		11DAF7282D2DDB9600561FA6 /* Exceptions for "CourseraCapstoneProject" folder in "CourseraCapstoneProject" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 115C96E22D2D7FA60086B4F8 /* CourseraCapstoneProject */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		115C96E52D2D7FA60086B4F8 /* CourseraCapstoneProject */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				11DAF7282D2DDB9600561FA6 /* Exceptions for "CourseraCapstoneProject" folder in "CourseraCapstoneProject" target */,
+			);
 			path = CourseraCapstoneProject;
 			sourceTree = "<group>";
 		};
@@ -399,6 +412,7 @@
 				DEVELOPMENT_TEAM = T5WZ426A5G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CourseraCapstoneProject/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -428,6 +442,7 @@
 				DEVELOPMENT_TEAM = T5WZ426A5G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CourseraCapstoneProject/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
