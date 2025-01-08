@@ -25,6 +25,8 @@ struct Onboarding: View {
                     EmptyView()
                 }
                 
+                Header(showBackButton: false, showProfilePicture: false)
+                
                 TextField("First name", text: $firstName)
                 TextField("Last name", text: $lastName)
                 TextField("Email", text: $email)
@@ -45,8 +47,8 @@ struct Onboarding: View {
                     Text("Register")
                         .font(Font.custom("Karla", size: 18))
                 }
+                Spacer()
             }
-            .padding()
             .onAppear {
                 PersistenceController.shared.clear()
                 

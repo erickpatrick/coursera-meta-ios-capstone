@@ -13,35 +13,55 @@ struct Menu: View {
     @State private var searchText: String = ""
     
     var body: some View {
-        VStack (alignment: .leading) {
-            Text("Little Lemon")
-                .font(.custom("Markazi", size: 40))
-            Text("Chicago")
-            Text("We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.")
+        VStack (alignment: .leading, spacing: 0) {
+            Header(showBackButton: false, showProfilePicture: true)
             
-            TextField("Search menu", text: $searchText)
-            FetchedObjects(
-                predicate: buildPRedicate(),
-                sortDescriptors: buildSortDescriptors()
-            ) { (dishes: [Dish]) in
-                List {
-                    ForEach(dishes, id: \.self) { dish in
-                        NavigationLink(destination: DishDetails(dish: dish)) {
-                            HStack {
-                                Text("\(dish.title!) - \(dish.price!)")
-                                Spacer()
-                                AsyncImage(url: URL(string: dish.image!)) { image in
-                                    image.resizable()
-                                        .scaledToFit()
-                                        .frame(width: 100, height: 50)
-                                } placeholder: {
-                                    ProgressView()
+            HStack {
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundStyle(Color.llGrayDark)
+                        .fontWeight(.bold)
+                    TextField("", text: $searchText, prompt: Text("Search menu").foregroundStyle(Color.llGrayDark))
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(Color.llGrayLight)
+                .foregroundColor(.black)
+                .clipShape(RoundedRectangle(cornerRadius: 24))
+            }
+            .padding()
+            .background(Color.llGreenDark)
+            .foregroundStyle(.white)
+            
+            VStack {
+                FetchedObjects(
+                    predicate: buildPredicate(),
+                    sortDescriptors: buildSortDescriptors()
+                ) { (dishes: [Dish]) in
+                    List {
+                        ForEach(dishes, id: \.self) { dish in
+                            ZStack {
+                                HStack {
+                                    Text("\(dish.title!) - \(dish.price!)")
+                                    Spacer()
+                                    AsyncImage(url: URL(string: dish.image!)) { image in
+                                        image.resizable()
+                                            .scaledToFill()
+                                            .frame(width: 100, height: 100)
+                                            .clipped()
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
                                 }
-                            }
-                        }
-                        
+                                NavigationLink(destination: DishDetails(dish: dish)) {
+                                    EmptyView()
+                                }.opacity(0)
+                            }.padding(.vertical, 16)
+                        }.listRowInsets(.init())
                     }
-                }.scrollContentBackground(.hidden)
+                    .listStyle(.plain)
+                    .scrollContentBackground(.hidden)
+                }.padding()
             }
         }
         .onAppear(perform: {
@@ -55,7 +75,7 @@ struct Menu: View {
         ]
     }
     
-    func buildPRedicate() -> NSPredicate {
+    func buildPredicate() -> NSPredicate {
         if searchText.isEmpty {
             return NSPredicate(value: true)
         }
