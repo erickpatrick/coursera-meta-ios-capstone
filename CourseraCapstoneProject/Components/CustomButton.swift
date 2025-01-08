@@ -40,18 +40,25 @@ struct CustomButton: View {
         } label: {
             Text("\(text)")
                 .frame(maxWidth: .infinity)
-                .font(Font.custom("Karla", size: 18))
+                .font(Font.custom("Karla", size: 15))
                 .fontWeight(.semibold)
         }
-        .padding(.vertical, 12)
-        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .padding(.horizontal, 12)
         .background(type.getBackgroundColor())
         .foregroundStyle(type.getForegroundColor())
         .cornerRadius(5)
         .overlay {
-            if (type == .tertiary) {
+            switch (type) {
+            case .tertiary:
                 RoundedRectangle(cornerRadius: 5)
                     .stroke(.llGreen, lineWidth: 1)
+            case .secondary:
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(.llSalmon, lineWidth: 1)
+            default:
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(.llGreenDark, lineWidth: 0)
             }
         }
     }

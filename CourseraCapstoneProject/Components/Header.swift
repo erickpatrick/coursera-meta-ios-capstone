@@ -10,9 +10,18 @@ import SwiftUI
 struct Header: View {
     let showBackButton: Bool?
     let showProfilePicture: Bool?
+    var actOnClick: Bool = false
+    
+    @State var shouldNavigateToProfile: Bool = false
+    
+    @Environment(\.presentationMode) var presentation
     
     var body: some View {
         VStack {
+            NavigationLink(destination: UserProfile(), isActive: $shouldNavigateToProfile) {
+                EmptyView()
+            }
+            
             ZStack {
                 HStack {
                     Spacer()
@@ -22,31 +31,37 @@ struct Header: View {
                 }
                 HStack {
                     if showProfilePicture ?? false {
-                        Spacer()
-                        Image("profile-image-placeholder")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 35)
-                            .padding(.horizontal, 25)
+                        Button {
+                            if actOnClick {
+                                shouldNavigateToProfile = true
+                            }
+                        } label: {
+                            Spacer()
+                            Image("profile-image-placeholder")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 35)
+                                .padding(.horizontal, 25)
+                        }
+
                     }
                 }
                 HStack {
                     if showBackButton ?? false {
                         Button {
-                            
+                            self.presentation.wrappedValue.dismiss()
                         } label: {
                             Text(Image(systemName: "arrow.left.circle.fill"))
                                 .foregroundColor(Color.llGreenDark)
                                 .font(.largeTitle)
                                 .padding(.horizontal, 25)
                         }
-
+                        
                         Spacer()
                     }
                 }
             }
-            Hero()
-        }
+        }.padding(.bottom, 16)
     }
 }
 

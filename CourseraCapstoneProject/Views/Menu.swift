@@ -14,7 +14,8 @@ struct Menu: View {
     
     var body: some View {
         VStack (alignment: .leading, spacing: 0) {
-            Header(showBackButton: false, showProfilePicture: true)
+            Header(showBackButton: false, showProfilePicture: true, actOnClick: true)
+            Hero()
             
             HStack {
                 HStack {
@@ -23,11 +24,10 @@ struct Menu: View {
                         .fontWeight(.bold)
                     TextField("", text: $searchText, prompt: Text("Search menu").foregroundStyle(Color.llGrayDark))
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
+                .padding(12)
                 .background(Color.llGrayLight)
                 .foregroundColor(.black)
-                .clipShape(RoundedRectangle(cornerRadius: 24))
+                .clipShape(RoundedRectangle(cornerRadius: 5))
             }
             .padding()
             .background(Color.llGreenDark)
@@ -155,5 +155,8 @@ struct Menu: View {
 }
 
 #Preview {
+    @Previewable @Environment(\.managedObjectContext) var viewContext
+    
     Menu()
+        .environment(\.managedObjectContext, viewContext)
 }

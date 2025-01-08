@@ -11,16 +11,18 @@ struct Home: View {
     let persistence = PersistenceController.shared
     
     var body: some View {
-        TabView {
-            Menu()
-                .environment(\.managedObjectContext, persistence.container.viewContext)
-                .tabItem { Label(LocalizedStringKey("Menu"), systemImage: "list.dash") }
-            
-            UserProfile()
-                .tabItem {
-                    Label(LocalizedStringKey("Profile"), systemImage: "square.and.pencil")
-                }
-        }.navigationBarBackButtonHidden(true)
+            TabView {
+                Menu()
+                    .environment(\.managedObjectContext, persistence.container.viewContext)
+                    .tabItem { Label(LocalizedStringKey("Menu"), systemImage: "list.dash") }
+                    .toolbar(.hidden, for: .tabBar)
+                
+                UserProfile()
+                    .tabItem {
+                        Label(LocalizedStringKey("Profile"), systemImage: "square.and.pencil")
+                            .toolbar(.hidden, for: .tabBar)
+                    }
+            }.navigationBarBackButtonHidden(true)
     }
 }
 

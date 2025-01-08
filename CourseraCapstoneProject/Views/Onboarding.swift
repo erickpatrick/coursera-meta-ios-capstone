@@ -11,6 +11,7 @@ let userDefaultsFirstname = "userDefaultsFirstnameKey"
 let userDefaultsLastname = "userDefaultsLastnameKey"
 let userDefaultsEmail = "userDefaultsEmailKey"
 let userDefaultsIsLoggedIn = "userDefaultsIsLoggedIn"
+let userDefaultsPhoneNumber = "userDefaultsPhoneNumber"
 
 struct Onboarding: View {
     @State private var firstName: String = ""
@@ -26,6 +27,7 @@ struct Onboarding: View {
                 }
                 
                 Header(showBackButton: false, showProfilePicture: isLoggedIn)
+                Hero()
                 
                 VStack {
                     InputField(inputField: $firstName, placeholderText: "First name", label: "Name *")
