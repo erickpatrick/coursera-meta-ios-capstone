@@ -33,7 +33,7 @@ struct Onboarding: View {
                     InputField(inputField: $email, placeholderText: "Email", label: "Email *")
                 }.padding()
                 
-                Button {
+                CustomButton(text: "Register", type: .primary) {
                     if (firstName.isEmpty == false &&
                         lastName.isEmpty == false &&
                         email.isEmpty == false &&
@@ -46,11 +46,7 @@ struct Onboarding: View {
                     } else {
                             print("error")
                     }
-                } label: {
-                    Text("Register")
-                        .font(Font.custom("Karla", size: 18))
-                }
-                Spacer()
+                }.padding()
             }
             .onAppear {
                 PersistenceController.shared.clear()
