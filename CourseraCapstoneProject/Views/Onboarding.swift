@@ -25,7 +25,7 @@ struct Onboarding: View {
                     EmptyView()
                 }
                 
-                Header(showBackButton: false, showProfilePicture: false)
+                Header(showBackButton: false, showProfilePicture: isLoggedIn)
                 
                 TextField("First name", text: $firstName)
                 TextField("Last name", text: $lastName)
