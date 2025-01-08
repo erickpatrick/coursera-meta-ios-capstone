@@ -27,9 +27,12 @@ struct Onboarding: View {
                 
                 Header(showBackButton: false, showProfilePicture: isLoggedIn)
                 
-                TextField("First name", text: $firstName)
-                TextField("Last name", text: $lastName)
-                TextField("Email", text: $email)
+                VStack {
+                    InputField(inputField: $firstName, placeholderText: "First name", label: "Name *")
+                    InputField(inputField: $lastName, placeholderText: "Last name", label: "Surname *")
+                    InputField(inputField: $email, placeholderText: "Email", label: "Email *")
+                }.padding()
+                
                 Button {
                     if (firstName.isEmpty == false &&
                         lastName.isEmpty == false &&
