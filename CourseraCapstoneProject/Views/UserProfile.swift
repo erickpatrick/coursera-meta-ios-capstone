@@ -8,15 +8,18 @@
 import SwiftUI
 
 struct UserProfile: View {
-    let firstname = UserDefaults.standard.value(forKey: userDefaultsFirstname)
-    let lastname = UserDefaults.standard.value(forKey: userDefaultsLastname)
-    let email = UserDefaults.standard.value(forKey: userDefaultsEmail)
-    let phoneNumber = UserDefaults.standard.value(forKey: userDefaultsPhoneNumber)
+    @State var firstnameTextField: String = UserDefaults.standard.string(forKey: userDefaultsFirstname) ?? ""
+    @State var lastnameTextField: String = UserDefaults.standard.string(forKey: userDefaultsLastname) ?? ""
+    @State var emailTextField: String = UserDefaults.standard.string(forKey: userDefaultsEmail) ?? ""
+    @State var phoneNumberTextField: String = UserDefaults.standard.string(forKey: userDefaultsPhoneNumber) ?? ""
     
-    @State var firstnameTextField: String = ""
-    @State var lastnameTextField: String = ""
-    @State var emailTextField: String = ""
-    @State var phoneNumberTextField: String = ""
+    @State var orderStatus = UserDefaults.standard.bool(forKey: userDefaultsOrderStatus)
+    @State var passwordChanges = UserDefaults.standard.bool(forKey: userDefaultsPasswordChanges)
+    @State var specialOffers = UserDefaults.standard.bool(forKey: userDefaultsSpecialOffers)
+    @State var newsletters = UserDefaults.standard.bool(forKey: userDefaultsNewsletter)
+    
+    @State var gotSavedSuccessfully: Bool = false
+    @State var gotDiscarded: Bool = false
     
     @Environment(\.presentationMode) var presentation
     
@@ -27,11 +30,12 @@ struct UserProfile: View {
         
             ScrollView {
                 VStack (alignment: .leading, spacing: 20) {
-                    Text("Personal information.")
+                    Text("Personal information")
                         .font(Font.custom("Karla", size: 20))
                         .fontWeight(.semibold)
                         .foregroundStyle(Color.llGrayDark)
                     
+                    // MARK: avatar
                     VStack (alignment: .leading) {
                         Text("Avatar")
                             .font(Font.custom("Karla", size: 14))
@@ -44,16 +48,16 @@ struct UserProfile: View {
                                 .frame(width: 80, height: 80)
                                 
                             CustomButton(text: "Change", type: .primary) {
-                                
+                                // TODO change image
                             }.frame(width: 100)
                             CustomButton(text: "Remove", type: .tertiary) {
-                                
+                                // TODO remove image
                             }.frame(width: 100)
                             Spacer()
                         }
                     }
                     
-                    
+                    // MARK: PErsonal Information
                     VStack (alignment: .leading, spacing: 20) {
                         InputField(inputField: $firstnameTextField, placeholderText: "First name", label: "First name", isCompact: true)
                         InputField(inputField: $lastnameTextField, placeholderText: "Last name", label: "Last name", isCompact: true)
@@ -61,12 +65,20 @@ struct UserProfile: View {
                         InputField(inputField: $phoneNumberTextField, placeholderText: "Phone number", label: "Phone number", isCompact: true)
                     }
                     
+                    // MARK: Email notifications
                     Text("Email notifications")
                         .font(Font.custom("Karla", size: 20))
                         .fontWeight(.semibold)
                         .foregroundStyle(Color.llGrayDark)
                     
+                    VStack (alignment: .leading, spacing: 20) {
+                        Checkbox(isOn: $orderStatus, text: "Order statuses")
+                        Checkbox(isOn: $passwordChanges,text: "Password changes")
+                        Checkbox(isOn: $specialOffers, text: "Special offers")
+                        Checkbox(isOn: $newsletters, text: "Newsletter")
+                    }
                     
+                    // MARK: Buttons
                     CustomButton(text: "Logout", type: .secondary) {
                         UserDefaults.standard.set(false, forKey: userDefaultsIsLoggedIn)
                         self.presentation.wrappedValue.dismiss()
@@ -74,14 +86,12 @@ struct UserProfile: View {
                     
                     HStack (spacing: 20) {
                         CustomButton(text: "Discard changes", type: .tertiary) {
-                            
+                            onDiscardChangesButtonPress()
                         }
-                        
                         CustomButton(text: "Save changes", type: .primary) {
-                            
+                            onSaveChangesButtonPress()
                         }.frame(width: 140)
-                    }
-                    .padding(20)
+                    }.padding(20)
                     Spacer()
                 }
                 .padding()
@@ -96,12 +106,48 @@ struct UserProfile: View {
         }
         
         .navigationBarBackButtonHidden(true)
-        .onAppear {
-            firstnameTextField = String("\(firstname ?? "")")
-            lastnameTextField = String("\(lastname ?? "")")
-            emailTextField = String("\(email ?? "")")
-            phoneNumberTextField = String("\(phoneNumber ?? "")")
+        .alert("Saved!", isPresented: $gotSavedSuccessfully) {
+            Button(role: .cancel) {
+                gotSavedSuccessfully.toggle()
+            } label: {
+                Text("OK")
+            }
         }
+        .alert("Discarded!", isPresented: $gotSavedSuccessfully) {
+            Button(role: .cancel) {
+                gotDiscarded.toggle()
+            } label: {
+                Text("OK")
+            }
+        }
+    }
+    
+    func onSaveChangesButtonPress() {
+        UserDefaults.standard.set(firstnameTextField, forKey: userDefaultsFirstname)
+        UserDefaults.standard.set(lastnameTextField, forKey: userDefaultsLastname)
+        UserDefaults.standard.set(emailTextField, forKey: userDefaultsEmail)
+        UserDefaults.standard.set(phoneNumberTextField, forKey: userDefaultsPhoneNumber)
+        
+        UserDefaults.standard.set(orderStatus, forKey: userDefaultsOrderStatus)
+        UserDefaults.standard.set(passwordChanges, forKey: userDefaultsPasswordChanges)
+        UserDefaults.standard.set(specialOffers, forKey: userDefaultsSpecialOffers)
+        UserDefaults.standard.set(newsletters, forKey: userDefaultsNewsletter)
+        
+        gotSavedSuccessfully.toggle()
+    }
+    
+    func onDiscardChangesButtonPress() {
+        firstnameTextField = UserDefaults.standard.string(forKey: userDefaultsFirstname) ?? ""
+        lastnameTextField = UserDefaults.standard.string(forKey: userDefaultsLastname) ?? ""
+        emailTextField = UserDefaults.standard.string(forKey: userDefaultsEmail) ?? ""
+        phoneNumberTextField = UserDefaults.standard.string(forKey: userDefaultsPhoneNumber) ?? ""
+        
+        orderStatus = UserDefaults.standard.bool(forKey: userDefaultsOrderStatus)
+        passwordChanges = UserDefaults.standard.bool(forKey: userDefaultsPasswordChanges)
+        specialOffers = UserDefaults.standard.bool(forKey: userDefaultsSpecialOffers)
+        newsletters = UserDefaults.standard.bool(forKey: userDefaultsNewsletter)
+        
+        gotDiscarded.toggle()
     }
 }
 

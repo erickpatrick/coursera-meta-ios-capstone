@@ -12,6 +12,10 @@ let userDefaultsLastname = "userDefaultsLastnameKey"
 let userDefaultsEmail = "userDefaultsEmailKey"
 let userDefaultsIsLoggedIn = "userDefaultsIsLoggedIn"
 let userDefaultsPhoneNumber = "userDefaultsPhoneNumber"
+let userDefaultsOrderStatus = "userDefaultsOrderStatus"
+let userDefaultsPasswordChanges = "userDefaultsPasswordChanges"
+let userDefaultsSpecialOffers = "userDefaultsSpecialOffers"
+let userDefaultsNewsletter = "userDefaultsNewsletter"
 
 struct Onboarding: View {
     @State private var firstName: String = ""
