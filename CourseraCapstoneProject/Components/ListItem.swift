@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ListItem: View {
     let dish: Dish
-    
+       
     var body: some View {
         ZStack {
             VStack (alignment: .leading, spacing: 0) {
@@ -26,7 +26,7 @@ struct ListItem: View {
                             .lineLimit(2)
                             .font(Font.custom("Karla", size: 16))
                         
-                        Text("$\(dish.price!)")
+                        Text("$" + String(format: "%.2f", Double(dish.price!)!))
                             .foregroundStyle(.llGreen)
                             .font(Font.custom("Karla", size: 20))
                             .fontWeight(.semibold)
