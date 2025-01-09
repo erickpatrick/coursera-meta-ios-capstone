@@ -12,22 +12,42 @@ struct ListItem: View {
     
     var body: some View {
         ZStack {
-            HStack {
-                Text("\(dish.title!) - \(dish.price!)")
-                Spacer()
-                AsyncImage(url: URL(string: dish.image!)) { image in
-                    image.resizable()
-                        .scaledToFill()
-                        .frame(width: 100, height: 100)
-                        .clipped()
-                } placeholder: {
-                    ProgressView()
+            VStack (alignment: .leading, spacing: 0) {
+                Text("\(dish.title!)")
+                    .font(Font.custom("Karla", size: 20))
+                    .fontWeight(.bold)
+                    .foregroundStyle(.llGrayDark)
+                
+                HStack(alignment: .bottom) {
+                    VStack (alignment: .leading, spacing: 20) {
+                        Text(dish.desc! + "\n")
+                            .foregroundStyle(.llGreen)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .lineLimit(2)
+                            .font(Font.custom("Karla", size: 16))
+                        
+                        Text("$\(dish.price!)")
+                            .foregroundStyle(.llGreen)
+                            .font(Font.custom("Karla", size: 20))
+                            .fontWeight(.semibold)
+                    }
+                    
+                    Spacer()
+                    
+                    AsyncImage(url: URL(string: dish.image!)) { image in
+                        image.resizable()
+                            .scaledToFill()
+                            .frame(width: 85, height: 85)
+                            .clipped()
+                    } placeholder: {
+                        ProgressView()
+                    }.frame(width: 85, height: 85)
                 }
-            }
-            NavigationLink(destination: DishDetails(dish: dish)) {
-                EmptyView()
-            }.opacity(0)
-        }.padding(.vertical, 16)
+                NavigationLink(destination: DishDetails(dish: dish)) {
+                    EmptyView()
+                }.opacity(0)
+            }.padding(.top, 16)
+        }
     }
 }
 

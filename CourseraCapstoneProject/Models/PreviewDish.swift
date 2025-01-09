@@ -13,9 +13,9 @@ struct PreviewDish {
     func singleDish() -> Dish {
         let dish: Dish = Dish(context: viewContext)
         dish.title = "Test Title"
-        dish.desc = "Test Description"
+        dish.desc = "The famous greek salad of crispy lettuce, peppers, olives and our Chicago-style dressing."
         dish.category = "Test Category"
-        dish.price = "100"
+        dish.price = "12.99"
         dish.image = "https://github.com/Meta-Mobile-Developer-PC/Working-With-Data-API/blob/main/images/greekSalad.jpg?raw=true"
         
         return dish
