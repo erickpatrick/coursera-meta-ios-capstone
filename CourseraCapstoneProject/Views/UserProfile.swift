@@ -30,10 +30,7 @@ struct UserProfile: View {
         
             ScrollView {
                 VStack (alignment: .leading, spacing: 20) {
-                    Text("Personal information")
-                        .font(Font.custom("Karla", size: 20))
-                        .fontWeight(.semibold)
-                        .foregroundStyle(Color.llGrayDark)
+                    SectionTitle(text: "Personal information")
                     
                     // MARK: avatar
                     VStack (alignment: .leading) {
@@ -66,10 +63,7 @@ struct UserProfile: View {
                     }
                     
                     // MARK: Email notifications
-                    Text("Email notifications")
-                        .font(Font.custom("Karla", size: 20))
-                        .fontWeight(.semibold)
-                        .foregroundStyle(Color.llGrayDark)
+                    SectionTitle(text: "Email notifications")
                     
                     VStack (alignment: .leading, spacing: 20) {
                         Checkbox(isOn: $orderStatus, text: "Order statuses")

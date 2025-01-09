@@ -20,16 +20,9 @@ struct ListItem: View {
                 
                 HStack(alignment: .bottom) {
                     VStack (alignment: .leading, spacing: 20) {
-                        Text(dish.desc! + "\n")
-                            .foregroundStyle(.llGreen)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .lineLimit(2)
-                            .font(Font.custom("Karla", size: 16))
+                        Description(text: dish.desc!)
                         
-                        Text("$" + String(format: "%.2f", Double(dish.price!)!))
-                            .foregroundStyle(.llGreen)
-                            .font(Font.custom("Karla", size: 20))
-                            .fontWeight(.semibold)
+                        Price(value: Double(dish.price!)!)
                     }
                     
                     Spacer()
