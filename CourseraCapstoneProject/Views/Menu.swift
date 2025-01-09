@@ -40,23 +40,7 @@ struct Menu: View {
                 ) { (dishes: [Dish]) in
                     List {
                         ForEach(dishes, id: \.self) { dish in
-                            ZStack {
-                                HStack {
-                                    Text("\(dish.title!) - \(dish.price!)")
-                                    Spacer()
-                                    AsyncImage(url: URL(string: dish.image!)) { image in
-                                        image.resizable()
-                                            .scaledToFill()
-                                            .frame(width: 100, height: 100)
-                                            .clipped()
-                                    } placeholder: {
-                                        ProgressView()
-                                    }
-                                }
-                                NavigationLink(destination: DishDetails(dish: dish)) {
-                                    EmptyView()
-                                }.opacity(0)
-                            }.padding(.vertical, 16)
+                            ListItem(dish: dish)
                         }.listRowInsets(.init())
                     }
                     .listStyle(.plain)
