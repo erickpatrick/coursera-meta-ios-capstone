@@ -32,18 +32,6 @@ struct ListItem: View {
 }
 
 #Preview {
-    @Previewable let dish: Dish = previewDish()
+    @Previewable let dish: Dish = PreviewDish().singleDish()
     ListItem(dish: dish)
-}
-
-func previewDish() -> Dish {
-    @Environment(\.managedObjectContext) var viewContext
-    let dish: Dish = Dish(context: viewContext)
-    dish.title = "Test Title"
-    dish.desc = "Test Description"
-    dish.category = "Test Category"
-    dish.price = "100"
-    dish.image = "https://github.com/Meta-Mobile-Developer-PC/Working-With-Data-API/blob/main/images/greekSalad.jpg?raw=true"
-    
-    return dish
 }
