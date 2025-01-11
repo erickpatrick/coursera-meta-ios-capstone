@@ -17,21 +17,17 @@ struct Filters: View {
                 .fontWeight(.black)
             ScrollView (.horizontal) {
                 HStack (spacing: 20) {
-                    CustomButton(text: "Starters", type: .filter) {
+                    CustomButton(text: "Starters", type: filter == "starters" ? .filter(true) : .filter(false)) {
                         filter = filter == "starters" ? "" : "starters"
-                        print(filter.isEmpty ? "empty" : filter)
                     }
-                    CustomButton(text: "Mains", type: .filter) {
+                    CustomButton(text: "Mains", type: filter == "mains" ? .filter(true) : .filter(false)) {
                         filter = filter == "mains" ? "" : "mains"
-                        print(filter.isEmpty ? "empty" : filter)
                     }
-                    CustomButton(text: "Desserts", type: .filter) {
+                    CustomButton(text: "Desserts", type: filter == "desserts" ? .filter(true) : .filter(false)) {
                         filter = filter == "desserts" ? "" : "desserts"
-                        print(filter.isEmpty ? "empty" : filter)
                     }
-                    CustomButton(text: "Drinks", type: .filter) {
+                    CustomButton(text: "Drinks", type: filter == "drinks" ? .filter(true) : .filter(false)) {
                         filter = filter == "drinks" ? "" : "drinks"
-                        print(filter.isEmpty ? "empty" : filter)
                     }
                 }
             }

@@ -11,14 +11,15 @@ enum CustomButtomType {
     case primary
     case secondary
     case tertiary
-    case filter
+    case filter(Bool)
     
     func getForegroundColor() -> Color {
         switch self {
         case .primary: return Color.white
         case .secondary: return Color.llGrayDark
         case .tertiary: return Color.llGray
-        case .filter: return Color.llGreenDark
+        case .filter(false): return Color.llGreenDark
+        case .filter(true): return Color.llGrayDark
         }
     }
     
@@ -27,13 +28,14 @@ enum CustomButtomType {
         case .primary: return Color.llGreenDark
         case .secondary: return Color.llYellow
         case .tertiary: return Color.white
-        case .filter: return Color.llGrayLight
+        case .filter(false): return Color.llGrayLight
+        case .filter(true): return Color.llYellow
         }
     }
     
     func getLineWidth() -> CGFloat {
         switch self {
-        case .filter: return 0
+        case .filter(false): return 0
         case .secondary: return 0
         default: return 1
         }
@@ -56,7 +58,7 @@ enum CustomButtomType {
 
 struct CustomButton: View {
     let text: String
-    let type: CustomButtomType
+    var type: CustomButtomType
     let action: () -> Void
     
     var body: some View {
@@ -87,6 +89,6 @@ struct CustomButton: View {
         .frame(maxWidth: 150)
     CustomButton(text: "Discard changes", type: .tertiary, action: {})
         .frame(maxWidth: 150)
-    CustomButton(text: "Filters", type: .filter, action: {})
+    CustomButton(text: "Filters", type: .filter(false), action: {})
         .frame(maxWidth: 150)
 }
