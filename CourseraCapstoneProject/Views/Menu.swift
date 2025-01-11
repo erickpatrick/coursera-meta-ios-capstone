@@ -13,6 +13,8 @@ struct Menu: View {
     @State private var searchText: String = ""
     @State private var filter: String = ""
     
+    @Environment(\.presentationMode) var presentation
+    
     var body: some View {
         VStack (alignment: .leading, spacing: 0) {
             Header(showBackButton: false, showProfilePicture: true, actOnClick: true)
@@ -54,7 +56,11 @@ struct Menu: View {
             }
         }
         .onAppear(perform: {
-            getMenuData()
+            if UserDefaults.standard.bool(forKey: userDefaultsIsLoggedIn) {
+                getMenuData()
+            } else {
+                self.presentation.wrappedValue.dismiss()
+            }
         })
     }
     
