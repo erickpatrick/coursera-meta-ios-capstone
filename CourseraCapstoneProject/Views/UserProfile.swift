@@ -74,8 +74,7 @@ struct UserProfile: View {
                     
                     // MARK: Buttons
                     CustomButton(text: "Logout", type: .secondary) {
-                        UserDefaults.standard.set(false, forKey: userDefaultsIsLoggedIn)
-                        self.presentation.wrappedValue.dismiss()
+                        onLogoutButtonPress()
                     }
                     
                     HStack (spacing: 20) {
@@ -114,6 +113,21 @@ struct UserProfile: View {
                 Text("OK")
             }
         }
+    }
+    
+    func onLogoutButtonPress() {
+        UserDefaults.standard.set("", forKey: userDefaultsFirstname)
+        UserDefaults.standard.set("", forKey: userDefaultsLastname)
+        UserDefaults.standard.set("", forKey: userDefaultsEmail)
+        UserDefaults.standard.set("", forKey: userDefaultsPhoneNumber)
+        
+        UserDefaults.standard.set(false, forKey: userDefaultsOrderStatus)
+        UserDefaults.standard.set(false, forKey: userDefaultsPasswordChanges)
+        UserDefaults.standard.set(false, forKey: userDefaultsSpecialOffers)
+        UserDefaults.standard.set(false, forKey: userDefaultsNewsletter)
+        
+        UserDefaults.standard.set(false, forKey: userDefaultsIsLoggedIn)
+        self.presentation.wrappedValue.dismiss()
     }
     
     func onSaveChangesButtonPress() {
