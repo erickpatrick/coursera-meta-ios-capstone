@@ -11,6 +11,7 @@ import CoreData
 struct Menu: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var searchText: String = ""
+    @State private var filter: String = ""
     
     var body: some View {
         VStack (alignment: .leading, spacing: 0) {
@@ -39,7 +40,7 @@ struct Menu: View {
                     sortDescriptors: buildSortDescriptors()
                 ) { (dishes: [Dish]) in
                     List {
-                        Filters()
+                        Filters(filter: $filter)
                             .listRowInsets(.init())
                             .padding(.bottom, 16)
                         
@@ -64,11 +65,14 @@ struct Menu: View {
     }
     
     func buildPredicate() -> NSPredicate {
-        if searchText.isEmpty {
+        if searchText.isEmpty && filter.isEmpty {
             return NSPredicate(value: true)
         }
         
-        return NSPredicate(format: "title CONTAINS[cd] %@", searchText)
+        let searchPredicate = NSPredicate(format: "title CONTAINS[cd] %@", searchText)
+        let categoryPredicate = NSPredicate(format: "category == %@", filter)
+        
+        return NSCompoundPredicate(type: .or, subpredicates: [searchPredicate, categoryPredicate])
     }
     
     func getMenuData() {
