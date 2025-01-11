@@ -39,6 +39,10 @@ struct Menu: View {
                     sortDescriptors: buildSortDescriptors()
                 ) { (dishes: [Dish]) in
                     List {
+                        Filters()
+                            .listRowInsets(.init())
+                            .padding(.bottom, 16)
+                        
                         ForEach(dishes, id: \.self) { dish in
                             ListItem(dish: dish)
                         }.listRowInsets(.init())

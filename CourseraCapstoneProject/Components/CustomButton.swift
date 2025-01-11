@@ -11,12 +11,14 @@ enum CustomButtomType {
     case primary
     case secondary
     case tertiary
+    case filter
     
     func getForegroundColor() -> Color {
         switch self {
         case .primary: return Color.white
         case .secondary: return Color.llGrayDark
         case .tertiary: return Color.llGray
+        case .filter: return Color.llGreenDark
         }
     }
     
@@ -25,6 +27,29 @@ enum CustomButtomType {
         case .primary: return Color.llGreenDark
         case .secondary: return Color.llYellow
         case .tertiary: return Color.white
+        case .filter: return Color.llGrayLight
+        }
+    }
+    
+    func getLineWidth() -> CGFloat {
+        switch self {
+        case .filter: return 0
+        case .secondary: return 0
+        default: return 1
+        }
+    }
+    
+    func getCornerRadius() -> CGFloat {
+        switch self {
+        case .filter: return 12
+        default: return 5
+        }
+    }
+    
+    func getFontWeigth() -> Font.Weight {
+        switch self {
+        case .filter: return .bold
+        default: return .semibold
         }
     }
 }
@@ -41,25 +66,16 @@ struct CustomButton: View {
             Text("\(text)")
                 .frame(maxWidth: .infinity)
                 .font(Font.custom("Karla", size: 15))
-                .fontWeight(.semibold)
+                .fontWeight(type.getFontWeigth())
         }
         .padding(.vertical, 10)
         .padding(.horizontal, 12)
         .background(type.getBackgroundColor())
         .foregroundStyle(type.getForegroundColor())
-        .cornerRadius(5)
+        .cornerRadius(type.getCornerRadius())
         .overlay {
-            switch (type) {
-            case .tertiary:
-                RoundedRectangle(cornerRadius: 5)
-                    .stroke(.llGreen, lineWidth: 1)
-            case .secondary:
-                RoundedRectangle(cornerRadius: 5)
-                    .stroke(.llSalmon, lineWidth: 1)
-            default:
-                RoundedRectangle(cornerRadius: 5)
-                    .stroke(.llGreenDark, lineWidth: 0)
-            }
+            RoundedRectangle(cornerRadius: type.getCornerRadius())
+                .stroke(type.getBackgroundColor(), lineWidth: type.getLineWidth())
         }
     }
 }
@@ -70,5 +86,7 @@ struct CustomButton: View {
     CustomButton(text: "Save changes", type: .primary, action: {})
         .frame(maxWidth: 150)
     CustomButton(text: "Discard changes", type: .tertiary, action: {})
+        .frame(maxWidth: 150)
+    CustomButton(text: "Filters", type: .filter, action: {})
         .frame(maxWidth: 150)
 }
